@@ -7,38 +7,7 @@ body {
     text-align: center;
 }
 
-/* Üst Kısım (Header) */
-header {
-    background-color: #b80000;
-    color: white;
-    padding: 20px;
-    font-size: 22px;
-    font-weight: bold;
-    text-align: center;
-}
-
-header div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 80%;
-    margin: auto;
-    gap: 50px; /* Öğeler arasındaki boşluğu artırdık */
-}
-
-header img {
-    width: 120px;
-    height: auto;
-}
-
-header h1 {
-    margin: 0;
-    padding: 10px 0;
-    flex-grow: 1;
-    text-align: center;
-}
-
-.btn {
+.gonder {
     background-color: white;
     color: #b80000;
     padding: 10px 15px;
@@ -48,7 +17,7 @@ header h1 {
     transition: 0.3s;
 }
 
-.btn:hover {
+.gonder:hover {
     background-color: #ffdddd;
 }
 
@@ -107,7 +76,7 @@ label {
 }
 
 /* Gönder Butonu */
-button {
+.gonder button {
     width: 100%;
     padding: 12px;
     background-color: #b80000;
@@ -120,7 +89,7 @@ button {
     transition: 0.3s;
 }
 
-button:hover {
+.gonder button:hover {
     background-color: #920000;
 }
 

@@ -1,33 +1,27 @@
 from django.urls import path
-from django.contrib.auth.views import LogoutView
-from .views import (
-    HomeView, LoginView, RegisterView, PasswordResetView, LogoutViewCustom,
-    MealListView, MealDetailView, FeedbackFormView, FeedbackListView,
-    AdminDashboardView, FeedbackManagementView, MealUploadView, ReportsView, ApproveFeedbackView,
-AdminLoginView
-)
+from django.conf.urls.static import static
+from gsb_yemekhane import settings
+from . import views
+from .views import yemek_listesi_panel, yemek_listesi_sil, yemek_listesi_indir,profil
 
 urlpatterns = [
-    # 📌 Genel Sayfalar
-    path("", HomeView.as_view(), name="home"),
-    path("login/", LoginView.as_view(), name="login"),
-    path("register/", RegisterView.as_view(), name="register"),
-    path("logout/", LogoutViewCustom.as_view(), name="logout"),
-    path("password-reset/", PasswordResetView.as_view(), name="password-reset"),
+    path('', views.anasayfa, name='anasayfa'),
+    path('yemek_yorumla/', views.yemek_yorumla, name='yemek_yorumla'),
+    path('sehir-dashboard/', views.sehir_dashboard, name='sehir-dashboard'),
+    path('register/', views.RegisterView.as_view(), name='register'),
+    path('login/', views.LoginView.as_view(), name='login'),
+    path('profile/', profil, name='profil'),
+    path('yorumlar/', views.yorumlar, name='yorumlar'),
+    path('ozetler/', views.ozetler, name='ozetler'),
+    path('logout/', views.logout_view, name='logout'),
 
-    # 📌 Yemek Sayfaları
-    path("meals/", MealListView.as_view(), name="meal-list"),
-    path("meals/<int:pk>/", MealDetailView.as_view(), name="meal-detail"),
-
-    # 📌 Geri Bildirim Sayfaları
-    path("feedback/", FeedbackFormView.as_view(), name="feedback-form"),
-    path("feedback/list/", FeedbackListView.as_view(), name="feedback-list"),
-
-    # 📌 Yönetici Paneli
-    path("admin/dashboard/", AdminDashboardView.as_view(), name="admin-dashboard"),
-    path("admin/feedbacks/", FeedbackManagementView.as_view(), name="feedback-management"),
-    path("admin/feedbacks/<int:pk>/approve/", ApproveFeedbackView.as_view(), name="approve-feedback"),  # 📌 Yeni Eklendi!
-    path("admin/meal-upload/", MealUploadView.as_view(), name="meal-upload"),
-    path("admin/reports/", ReportsView.as_view(), name="reports"),
-    path('admin-login/', AdminLoginView.as_view(), name='admin-login'),
+    path("get-yurtlar/", views.get_yurtlar, name="get_yurtlar"),
+    path('get-sehir/', views.get_sehir, name='get_sehir'),
+    path('panel/', yemek_listesi_panel, name='yemek_listesi_panel'),
+    path('yemek-guncelle/', views.yemek_listesi_upload, name='yemek_guncelle'),
+    path('panel/sil/<int:liste_id>/', yemek_listesi_sil, name='yemek_listesi_sil'),
+    path('panel/indir/', yemek_listesi_indir, name='yemek_listesi_indir'),
 ]
+
+if settings.DEBUG:  # Sadece geliştirme ortamında medya dosyalarını sun
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

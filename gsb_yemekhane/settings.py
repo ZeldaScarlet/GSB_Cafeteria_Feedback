@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-o=^z7rqi5!w()9fopu*e(4c&g!@jen(iv$3-7e6#_i&h^@e5vp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["notable-gecko-picked.ngrok-free.app", "127.0.0.1","localhost"]
 
+AUTH_USER_MODEL = 'feedbackApp.CustomUser'  # Eğer 'feedbackApp' yerine farklı bir app ismi varsa onu kullan
 
 # Application definition
 
@@ -116,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Istanbul'
 
 USE_I18N = True
 

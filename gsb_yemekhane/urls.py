@@ -19,7 +19,5 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),  # Django admin paneli
-    path('', include('feedbackApp.urls')),  # HTML ve Template tabanlı sayfalar
-    path('api/', include('feedbackApp.api.urls')),  # API uç noktaları (JSON veri)
-
+    path('', include('feedbackApp.urls')),  # HTML ve Template tabanlı sayfalarPI uç noktaları (JSON veri)
 ]

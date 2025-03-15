@@ -1,45 +1,45 @@
 from django.contrib import admin
-from .models import City, UserProfile, MealCategory, Meal, Feedback, MealImport
+from .models import CustomUser, Sehir, Yurt, Yemek, YemekListesi, YemekListesiGuncelleme, YemekYorumu
 
-# 📌 Şehir Modeli Admin Paneli
-@admin.register(City)
-class CityAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')  # ID ve Şehir adı gösterilecek
-    search_fields = ('name',)  # Şehir adına göre arama yapılabilecek
-    ordering = ('name',)
+# CustomUser Modeli için Admin
+@admin.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ("username", "email", "kullanici_tipi", "sehir")  
+    list_filter = ("kullanici_tipi", "sehir")  
+    search_fields = ("username", "email")
 
-# 📌 Kullanıcı Profili Admin Paneli
-@admin.register(UserProfile)
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'user_type', 'city')  # Kullanıcı, Türü ve Şehri göster
-    list_filter = ('user_type', 'city')  # Kullanıcı türüne ve şehre göre filtreleme
-    search_fields = ('user__username', 'city__name')  # Kullanıcı adına ve şehir adına göre arama
 
-# 📌 Yemek Kategorisi Admin Paneli
-@admin.register(MealCategory)
-class MealCategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')  # ID ve Kategori adı göster
-    search_fields = ('name',)  # Kategori adına göre arama
 
-# 📌 Yemek Modeli Admin Paneli
-@admin.register(Meal)
-class MealAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'category', 'city', 'date')  # ID, Yemek Adı, Kategori, Şehir, Tarih
-    list_filter = ('category', 'city', 'date')  # Kategori, Şehir ve Tarihe göre filtreleme
-    search_fields = ('name', 'city__name', 'category__name')  # Yemek, şehir ve kategori adına göre arama
-    ordering = ('-date',)  # En güncel yemekler en üstte görünecek
+# Yurt Modeli için Admin
+@admin.register(Yurt)
+class YurtAdmin(admin.ModelAdmin):
+    list_display = ("isim", "sehir")
+    list_filter = ("sehir",)
+    search_fields = ("isim",)
 
-# 📌 Geri Bildirim Modeli Admin Paneli
-@admin.register(Feedback)
-class FeedbackAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'meal', 'rating', 'sentiment', 'is_approved', 'created_at')
-    list_filter = ('sentiment', 'is_approved', 'rating')  # Duygu analizi, onay durumu ve puana göre filtreleme
-    search_fields = ('user__username', 'meal__name', 'comment')  # Kullanıcı adı, yemek adı ve yorum içeriğine göre arama
-    ordering = ('-created_at',)  # En güncel yorumlar en üstte görünecek
-    list_editable = ('is_approved',)  # Admin panelinden geri bildirimleri hızlıca onaylamak için
+# Yemek Modeli için Admin
+@admin.register(Yemek)
+class YemekAdmin(admin.ModelAdmin):
+    list_display = ("isim", "ogun", "sehir", "tarih")
+    list_filter = ("ogun", "sehir", "tarih")
+    search_fields = ("isim",)
 
-# 📌 Excel Yükleme Modeli Admin Paneli
-@admin.register(MealImport)
-class MealImportAdmin(admin.ModelAdmin):
-    list_display = ('id', 'file_path', 'uploaded_at')  # ID, Dosya Yolu ve Yükleme Tarihi
-    ordering = ('-uploaded_at',)  # En son yüklenen dosyalar en üstte görünecek
+# Yemek Listesi Modeli için Admin
+@admin.register(YemekListesi)
+class YemekListesiAdmin(admin.ModelAdmin):
+    list_display = ("il", "tarih", "ogun", "yemek_1", "yemek_2", "yemek_3", "yemek_4", "yemek_5")
+    list_filter = ("il", "tarih", "ogun")
+    search_fields = ("il__isim",)
+
+# Yemek Listesi Güncelleme Modeli için Admin
+@admin.register(YemekListesiGuncelleme)
+class YemekListesiGuncellemeAdmin(admin.ModelAdmin):
+    list_display = ("sehir", "excel_dosyasi", "yuklenme_tarihi")
+    list_filter = ("sehir", "yuklenme_tarihi")
+
+# Yemek Yorumu Modeli için Admin
+@admin.register(YemekYorumu)
+class YemekYorumuAdmin(admin.ModelAdmin):
+    list_display = ("user", "yemek", "yorum_puanı", "tarih")
+    list_filter = ("yorum_puanı", "tarih")
+    search_fields = ("user_username", "yemek_isim")
